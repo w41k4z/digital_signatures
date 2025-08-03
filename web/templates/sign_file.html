@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <h2>Sign {{ filename }}</h2>
+    
+    <div class="alert alert-info">
+        <p>Please follow these steps:</p>
+        <ol>
+            <li>Download the file using the button below</li>
+            <li>Sign it using your private key</li>
+            <li>Upload the signature file (.signature.json)</li>
+        </ol>
+    </div>
+
+    <div style="margin: 1rem 0;">
+        <a href="{% url 'download_file' folder=folder filename=filename %}" class="btn">Download {{ filename }}</a>
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="signature">Signature File (.signature.json)</label>
+            <input type="file" id="signature" name="signature" accept=".signature.json" required>
+        </div>
+        <button type="submit" class="btn">Upload Signature</button>
+    </form>
+</div>
+{% endblock %}

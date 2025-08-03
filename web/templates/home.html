@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <h1>{{ title }}</h1>
+    <p>{{ description }}</p>
+</div>
+
+{% if unsigned_files %}
+<div class="card" style="margin-top: 2rem;">
+    <h2>Documents Waiting for Signature</h2>
+    <ul style="list-style: none; padding: 0;">
+        {% for file in unsigned_files %}
+        <li style="padding: 0.5rem 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+            <span>{{ file.name }}</span>
+            <div>
+                <a href="{% url 'sign_file' folder=file.folder filename=file.name %}" class="btn">Sign</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endblock %}
